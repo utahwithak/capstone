@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <platform.h>
+#include <inttypes.h>
 
 #include "XCoreInstPrinter.h"
 #include "../../MCInst.h"

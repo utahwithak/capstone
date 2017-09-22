@@ -20,6 +20,7 @@
 #include <string.h>
 
 #include <platform.h>
+#include <inttypes.h>
 
 #include "../../utils.h"
 

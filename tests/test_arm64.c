@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 #include <platform.h>
+#include <inttypes.h>
 #include <capstone.h>
 
 static csh handle;

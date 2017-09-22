@@ -21,6 +21,7 @@
 #include <ctype.h>
 #endif
 #include <platform.h>
+#include <inttypes.h>
 #if defined(CAPSTONE_HAS_OSXKERNEL)
 #include <libkern/libkern.h>
 #else

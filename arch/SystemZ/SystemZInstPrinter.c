@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <platform.h>
+#include <inttypes.h>
 
 #include "SystemZInstPrinter.h"
 #include "../../MCInst.h"

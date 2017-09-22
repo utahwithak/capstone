@@ -13,6 +13,7 @@
 #include <string.h>
 
 #include <platform.h>
+#include <inttypes.h>
 
 #include "SStream.h"
 #include "cs_priv.h"

@@ -17,6 +17,7 @@
 #ifdef CAPSTONE_HAS_ARM64
 
 #include <platform.h>
+#include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
 

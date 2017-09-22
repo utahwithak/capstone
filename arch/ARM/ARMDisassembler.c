@@ -16,6 +16,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <platform.h>
+#include <inttypes.h>
 
 #include "ARMAddressingModes.h"
 #include "ARMBaseInfo.h"
