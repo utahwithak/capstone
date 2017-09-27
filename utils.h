@@ -19,13 +19,11 @@
 typedef struct insn_map {
 	unsigned short id;
 	unsigned short mapid;
-#ifndef CAPSTONE_DIET
 	unsigned char regs_use[12]; // list of implicit registers used by this instruction
 	unsigned char regs_mod[20]; // list of implicit registers modified by this instruction
 	unsigned char groups[8]; // list of group this instruction belong to
 	bool branch;	// branch instruction?
 	bool indirect_branch;	// indirect branch instruction?
-#endif
 } insn_map;
 
 // look for @id in @m, given its size in @max. first time call will update @cache.

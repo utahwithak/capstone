@@ -53,6 +53,8 @@
 
 cs_err (*arch_init[MAX_ARCH])(cs_struct *) = { NULL };
 cs_err (*arch_option[MAX_ARCH]) (cs_struct *, cs_opt_type, size_t value) = { NULL };
+cs_err (*arch_get_option[MAX_ARCH]) (cs_struct *, cs_opt_type, cs_opt_value* value) = { NULL };
+
 void (*arch_destroy[MAX_ARCH]) (cs_struct *) = { NULL };
 
 extern void ARM_enable(void);
@@ -384,6 +386,35 @@ static uint8_t skipdata_size(cs_struct *handle)
 			// so we just skip 2 bytes
 			return 2;
 	}
+}
+
+CAPSTONE_EXPORT
+cs_err CAPSTONE_API cs_get_option(csh ud, cs_opt_type type, cs_opt_value* value)
+{
+    struct cs_struct *handle;
+    archs_enable();
+
+    if (type == CS_OPT_MEM) {
+        // NOT HANDLED
+        return CS_ERR_MEM;
+    }
+
+    handle = (struct cs_struct *)(uintptr_t)ud;
+    if (!handle)
+        return CS_ERR_CSH;
+
+    switch(type) {
+        default:
+            break;
+        case CS_OPT_DETAIL:
+            *value = handle->detail;
+            return CS_ERR_OK;
+        case CS_OPT_SKIPDATA:
+            *value = handle->skipdata ? CS_OPT_ON : CS_OPT_OFF;
+            return CS_ERR_OK;
+    }
+
+    return arch_get_option[handle->arch](handle,type,value);
 }
 
 CAPSTONE_EXPORT
@@ -888,6 +919,23 @@ bool CAPSTONE_API cs_insn_group(csh ud, const cs_insn *insn, unsigned int group_
 	}
 
 	return arr_exist(insn->detail->groups, insn->detail->groups_count, group_id);
+}
+
+CAPSTONE_EXPORT
+bool CAPSTONE_API cs_insn_in_group(const cs_insn *insn, unsigned int group_id, cs_err* error)
+{
+
+    if(!insn->id) {
+        *error = CS_ERR_SKIPDATA;
+        return false;
+    }
+
+    if(!insn->detail) {
+        *error = CS_ERR_DETAIL;
+        return false;
+    }
+
+    return arr_exist(insn->detail->groups, insn->detail->groups_count, group_id);
 }
 
 CAPSTONE_EXPORT

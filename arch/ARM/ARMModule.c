@@ -63,6 +63,22 @@ static cs_err option(cs_struct *handle, cs_opt_type type, size_t value)
 	return CS_ERR_OK;
 }
 
+static cs_err get_option(cs_struct *handle, cs_opt_type type, cs_opt_value* value)
+{
+    switch(type) {
+        case CS_OPT_MODE:
+            *value = (cs_opt_value)handle->mode;
+            return CS_ERR_OK;
+        case CS_OPT_SYNTAX:
+            *value = (cs_opt_value)handle->syntax;
+            return CS_ERR_OK;
+        default:
+            break;
+    }
+
+    return CS_ERR_OPTION;
+}
+
 static void destroy(cs_struct *handle)
 {
 }
@@ -72,6 +88,7 @@ void ARM_enable(void)
 	arch_init[CS_ARCH_ARM] = init;
 	arch_option[CS_ARCH_ARM] = option;
 	arch_destroy[CS_ARCH_ARM] = destroy;
+    arch_get_option[CS_ARCH_ARM] = get_option;
 
 	// support this arch
 	all_arch |= (1 << CS_ARCH_ARM);

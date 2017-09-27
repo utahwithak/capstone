@@ -376,6 +376,13 @@ cs_err CAPSTONE_API cs_open(cs_arch arch, cs_mode mode, csh *handle);
 */
 CAPSTONE_EXPORT
 cs_err CAPSTONE_API cs_close(csh *handle);
+/* Get option of engine.
+ @handle: handle returned by cs_open()
+ @type: type of option to be set
+ @value: option value corresponding with @type
+ */
+CAPSTONE_EXPORT
+cs_err CAPSTONE_API cs_get_option(csh ud, cs_opt_type type, cs_opt_value *value);
 
 /*
  Set option for disassembling engine at runtime
@@ -595,6 +602,9 @@ const char * CAPSTONE_API cs_group_name(csh handle, unsigned int group_id);
 */
 CAPSTONE_EXPORT
 bool CAPSTONE_API cs_insn_group(csh handle, const cs_insn *insn, unsigned int group_id);
+
+CAPSTONE_EXPORT
+    bool CAPSTONE_API cs_insn_in_group(const cs_insn *insn, unsigned int group_id, cs_err* error);
 
 /*
  Check if a disassembled instruction IMPLICITLY used a particular register.
