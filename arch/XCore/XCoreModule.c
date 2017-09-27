@@ -35,6 +35,13 @@ static cs_err option(cs_struct *handle, cs_opt_type type, size_t value)
 	return CS_ERR_OK;
 }
 
+static cs_err get_option(cs_struct *handle, cs_opt_type type, cs_opt_value* value)
+{
+
+    return CS_ERR_OPTION;
+}
+
+
 static void destroy(cs_struct *handle)
 {
 }
@@ -44,7 +51,7 @@ void XCore_enable(void)
 	arch_init[CS_ARCH_XCORE] = init;
 	arch_option[CS_ARCH_XCORE] = option;
 	arch_destroy[CS_ARCH_XCORE] = destroy;
-
+    arch_get_option[CS_ARCH_XCORE] = get_option;
 	// support this arch
 	all_arch |= (1 << CS_ARCH_XCORE);
 }

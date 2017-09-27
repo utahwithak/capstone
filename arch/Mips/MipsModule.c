@@ -51,6 +51,15 @@ static cs_err option(cs_struct *handle, cs_opt_type type, size_t value)
 	}
 	return CS_ERR_OK;
 }
+static cs_err get_option(cs_struct *handle, cs_opt_type type, cs_opt_value* value)
+{
+    if (type == CS_OPT_MODE) {
+        *value = (cs_opt_value)handle->mode;
+        return CS_ERR_OK;
+    }
+
+    return CS_ERR_OPTION;
+}
 
 static void destroy(cs_struct *handle)
 {
@@ -61,7 +70,7 @@ void Mips_enable(void)
 	arch_init[CS_ARCH_MIPS] = init;
 	arch_option[CS_ARCH_MIPS] = option;
 	arch_destroy[CS_ARCH_MIPS] = destroy;
-
+    arch_get_option[CS_ARCH_MIPS] = get_option;
 	// support this arch
 	all_arch |= (1 << CS_ARCH_MIPS);
 }
